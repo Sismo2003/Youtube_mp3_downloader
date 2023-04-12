@@ -37,6 +37,8 @@ def clear():
     os.system("clear") # mac / linux:
     #os.system("cls") # windows
 
+
+
 def mp3():
     figura_1 = (pf.figlet_format("ILEGAL"))
     print (colored(Fore.RED + figura_1 , attrs=[ "blink"]))
@@ -88,8 +90,38 @@ def mp3():
     print("Descargando")
     
 
-
-
+def sos ():
+    clear();
+    print(Fore.RED + """
+        Estas en la funcion de emergencia.
+    """)
+    print(Fore.LIGHTMAGENTA_EX+ """ 
+        Si llegaste aqui es por que algo salio mal.
+        Que hiciste? no se. Pero petaste el programa.
+    """)
+    print(Fore.RED + """ 
+        Si PETO.
+    """)
+    print(Fore.YELLOW + """ 
+            Pero no te preocupes para eso existe esta Funcion.
+            Te dare la opción de salir del programa.
+    """)
+    print(Fore.WHITE + "Presiona 1." + Fore.RESET + Fore.BLUE + " Volver al Menu. ")
+    print(Fore.WHITE + "Presiona 2." +  Fore.RESET + Fore.BLUE + " Para salir del programa.")
+    try:
+        client_op = int(input(">> ") )
+    except:
+        print(pf.figlet_format("TE CALENTASTE"))
+        print(Fore.RESET+Fore.RED + "MALA COPEASTE MUY MALLLLLL")
+        print("Saldremos del programa...");
+        return 0;
+    if(client_op == 1):
+        waiting_time();
+        clear();
+        return start();
+    else:
+        return 0;
+    
 
 def start ():
     clear()
@@ -142,11 +174,11 @@ def start ():
             time.sleep(.3)
         print("\n")
         clear()
-        return 0; 
+         
 
 
 
-start()
+sos();
 
 
 
