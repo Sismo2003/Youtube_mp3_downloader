@@ -4,42 +4,95 @@ import pyfiglet as pf
 import time 
 from termcolor import colored, cprint
 import os
-import pytube 
+from pytube import YouTube 
 
+# La funcion init es parte de colorama el parametro "autoreset = True" lo utilizamos para que
+# Cuando usemos las funciones Fore, Back , Style se resetie y no tengamos que hacerlo manual mente
+# Con el comando (funcion).Reset + (Nuevo color) + ("texto") 
 init(autoreset=True)
 
- 
 
+
+
+
+# Funcion " Waiting_time() "la utilizamos para una pantalla de espera
+# Con esta funcion hacemos que al momento de pasar de una funcion a otra nos de una mini pantalla
+# De espera con el fin de que el programa no vaya tan rapido y se vea las transiciones muy rapidas
+# Podemos modificar el tiempo de espera dentro de la iteracion del "For" en la linea del "time.sleep(...)"
+# El parametro aqui es un entero que significa segundos de espera en este caso es cada 0.3 segundos cada iteracion
+def waiting_time():
+    text = colored(Fore.LIGHTMAGENTA_EX + "Cargando", attrs=["bold","blink"])
+    print(text, end=" ")
+    for i in range(0,10):
+        print(". ", end=" ")
+        time.sleep(.3)
+    return 0
+
+
+# En esta funcion se utiliza para borrar la terminal dependiendo de que siste operativo utilices
+# En mi caso utilizo mac entonces comento la funcion para windows 
+# En el caso donde utilices cualquier distribucion de linux basta con dejar la funcion " os.system("clear") " que es igual a la mac
+# Si utlizas Windows solo comenta la funcion de mac/linux y descomenta la de windows
 def clear():
-    #mac:
-    #os.system("clear")
-    os.system("cls")
+    os.system("clear") # mac / linux:
+    #os.system("cls") # windows
 
 def mp3():
     figura_1 = (pf.figlet_format("ILEGAL"))
     print (colored(Fore.RED + figura_1 , attrs=[ "blink"]))
     time.sleep(.5)
     clear()
-    print(Fore.YELLOW + "♬♬♬♬♬♬♬♬  Descarga de archivo MP3   ♬♬♬♬♬♬♬♬\n" )
+    print(Fore.YELLOW+ Back.BLUE + "♬♬♬♬♬♬♬♬  Descarga de archivo MP3   ♬♬♬♬♬♬♬♬\n" )
     figura_2 = (pf.figlet_format("               MP3"))#♬♬♬
     print (colored(Fore.BLUE + figura_2 , attrs=[ "blink", "bold"]))
-    
     print(Fore.GREEN  + Style.BRIGHT+ Style.DIM + """
             Ingresa el Link: 
     """)
-    link = input(">> ")
+    try:
+        youtube_link = input(YouTube(">>> "))
+        client_video = youtube_link.streams.first()
+    except:
+        print(""""
+            Algo salio mal :/""")
+        print(""" 
+            Quieres devolverte al menu?""")
+        print(Fore.WHITE + "1." +Fore.RESET +  Fore.LIGHTMAGENTA_EX + "Si, por fa ")
+        print(Fore.WHITE + "2." +Fore.RESET +  Fore.LIGHTMAGENTA_EX + "No, crack")
+        client_answer = input(">>> ")
+        if(client_answer == 1 ):
+            return start();
+        else:
+            return 0;
 
-    yt = pytube.YouTube(link)
-  
-    print(f"Descargando {yt.title}")
-   # yt.streams.get_audio_only().download()
+
+    print(f"El Nombre de la cancion es: {client_video.title}")
+    print("""
+            Es correcto?
+        """)
+    print(Fore.WHITE + "1." + Fore.RESET + Fore.BLUE + f"Si, el nombre de la cancion es {client_video.title}")
+    print(Fore.WHITE + "2." +Fore.RESET + Fore.BLUE + f"No, mala copeaste mucho...")
+    client_answer = input(">>> ")
+    if(client_answer == 1):
+        client_video.download('~/Desktop')
+    else:
+        return start();
+    try:
+        link = YouTube(input(">> "))
+        root = link.streams.first()
+        
+        
+    except:
+        print("LINK no valido")
+        waiting_time()
+        start()
+    print("Descargando")
     
-    return 0;
 
 
 
 
 def start ():
+    clear()
     print(pf.figlet_format("            BIENVENIDOS"))
 
     print(Fore.RED +"""
@@ -79,30 +132,19 @@ def start ():
 
 
     if(client_op == 1):
-        time.sleep(2)
+        waiting_time()
         clear()
         mp3();
-    elif(client_op == 2):
-        time.sleep(2)
-        clear()
-        return avi();
-    elif(client_op == 3):
-        time.sleep(2)
-        clear()
-        return custom();
-    elif(client_op == 4):
         print("GRACIAS POR ESCOJERNOS.....")
+        print("Saliendo del programa")
+        for i in range(0,10):
+            print(". ", end=" ")
+            time.sleep(.3)
+        print("\n")
+        clear()
         return 0; 
 
 
-def custom():
-    for i in range(0,100):
-        print(Fore.RED + "TE CALENTASTE\n")
-
-def avi():
-    for i in range(0,10):
-        print("calmala\n")
-    print("calmalaaaaaaaaaaa")
 
 start()
 
