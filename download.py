@@ -44,7 +44,8 @@ def mp3():
     print (colored(Fore.RED + figura_1 , attrs=[ "blink"]))
     time.sleep(.5)
     clear()
-    print(Fore.YELLOW+ Back.BLUE + "♬♬♬♬♬♬♬♬  Descarga de archivo MP3   ♬♬♬♬♬♬♬♬\n" )
+    print(Fore.YELLOW+ Back.BLUE + "♬♬♬♬♬♬♬♬  Descarga de archivo MP3      
+    ♬♬♬♬♬♬♬♬\n" )
     figura_2 = (pf.figlet_format("               MP3"))#♬♬♬
     print (colored(Fore.BLUE + figura_2 , attrs=[ "blink", "bold"]))
     print(Fore.GREEN  + Style.BRIGHT+ Style.DIM + """
