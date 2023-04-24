@@ -12,23 +12,6 @@ from pytube import YouTube
 init(autoreset=True)
 
 
-
-
-
-# Funcion " Waiting_time() "la utilizamos para una pantalla de espera
-# Con esta funcion hacemos que al momento de pasar de una funcion a otra nos de una mini pantalla
-# De espera con el fin de que el programa no vaya tan rapido y se vea las transiciones muy rapidas
-# Podemos modificar el tiempo de espera dentro de la iteracion del "For" en la linea del "time.sleep(...)"
-# El parametro aqui es un entero que significa segundos de espera en este caso es cada 0.3 segundos cada iteracion
-def waiting_time():
-    text = colored(Fore.LIGHTMAGENTA_EX + "Cargando", attrs=["bold","blink"])
-    print(text, end=" ")
-    for i in range(0,10):
-        print(". ", end=" ")
-        time.sleep(.3)
-    return 0
-
-
 # En esta funcion se utiliza para borrar la terminal dependiendo de que siste operativo utilices
 # En mi caso utilizo mac entonces comento la funcion para windows 
 # En el caso donde utilices cualquier distribucion de linux basta con dejar la funcion " os.system("clear") " que es igual a la mac
@@ -39,34 +22,42 @@ def clear():
 
 
 
+# Funcion " Waiting_time() "la utilizamos para una pantalla de espera
+# Con esta funcion hacemos que al momento de pasar de una funcion a otra nos de una mini pantalla
+# De espera con el fin de que el programa no vaya tan rapido y se vea las transiciones muy rapidas
+# Podemos modificar el tiempo de espera dentro de la iteracion del "For" en la linea del "time.sleep(...)"
+# El parametro aqui es un entero que significa segundos de espera en este caso es cada 0.3 segundos cada iteracion
+def waiting_time(x):
+    text = colored(Fore.LIGHTMAGENTA_EX + "Cargando", attrs=["bold","blink"])
+    print(text, end=" ")
+    for i in range(0,x):
+        print(". ", end=" ")
+        time.sleep(.3)
+    print("\n")
+    return 0;
+
+
+
+
+
 def mp3():
     figura_1 = (pf.figlet_format("ILEGAL"))
     print (colored(Fore.RED + figura_1 , attrs=[ "blink"]))
     time.sleep(.5)
     clear()
-    print(Fore.YELLOW+ Back.BLUE + "♬♬♬♬♬♬♬♬  Descarga de archivo MP3      
-    ♬♬♬♬♬♬♬♬\n" )
+    
+    print(Fore.YELLOW + Back.BLUE + """"♬♬♬♬♬♬♬♬  Descarga de archivo MP3 ♬♬♬♬♬♬♬♬ \n""" )
+
     figura_2 = (pf.figlet_format("               MP3"))#♬♬♬
     print (colored(Fore.BLUE + figura_2 , attrs=[ "blink", "bold"]))
     print(Fore.GREEN  + Style.BRIGHT+ Style.DIM + """
             Ingresa el Link: 
     """)
     try:
-        youtube_link = input(YouTube(">>> "))
+        youtube_link = input(YouTube("Youtube link >>> "))
         client_video = youtube_link.streams.first()
     except:
-        print(""""
-            Algo salio mal :/""")
-        print(""" 
-            Quieres devolverte al menu?""")
-        print(Fore.WHITE + "1." +Fore.RESET +  Fore.LIGHTMAGENTA_EX + "Si, por fa ")
-        print(Fore.WHITE + "2." +Fore.RESET +  Fore.LIGHTMAGENTA_EX + "No, crack")
-        client_answer = input(">>> ")
-        if(client_answer == 1 ):
-            return start();
-        else:
-            return 0;
-
+        sos();
 
     print(f"El Nombre de la cancion es: {client_video.title}")
     print("""
@@ -86,7 +77,7 @@ def mp3():
         
     except:
         print("LINK no valido")
-        waiting_time()
+        waiting_time(10)
         start()
     print("Descargando")
     
@@ -111,16 +102,16 @@ def sos ():
     print(Fore.WHITE + "Presiona 2." +  Fore.RESET + Fore.BLUE + " Para salir del programa.")
     try:
         client_op = int(input(">> ") )
+        if(client_op == 1):
+            waiting_time(10);
+            clear();
+            return start();
+        else:
+            return 0;
     except:
         print(pf.figlet_format("TE CALENTASTE"))
         print(Fore.RESET+Fore.RED + "MALA COPEASTE MUY MALLLLLL")
         print("Saldremos del programa...");
-        return 0;
-    if(client_op == 1):
-        waiting_time();
-        clear();
-        return start();
-    else:
         return 0;
     
 
@@ -153,8 +144,8 @@ def start ():
     """)
 
     print(Fore.WHITE + "1. " + Fore.GREEN + "Descargar solo el MP3"+ Fore.RESET + Fore.LIGHTCYAN_EX + "   COLD COLD COLD\n")
-    print(Fore.WHITE + "2. " + Fore.GREEN + "Descargar El video + Audio" + Fore.RESET + Fore.LIGHTCYAN_EX + "   COLD COLD COLD\n")
-    print(Fore.WHITE + "3. " + Fore.GREEN + "Configuracion personaliza" +  Fore.RESET + Fore.RED + "   HOT HOT HOT HOT\n")
+    #print(Fore.WHITE + "2. " + Fore.GREEN + "Descargar El video + Audio" + Fore.RESET + Fore.LIGHTCYAN_EX + "   COLD COLD COLD\n")
+    #print(Fore.WHITE + "3. " + Fore.GREEN + "Configuracion personaliza" +  Fore.RESET + Fore.RED + "   HOT HOT HOT HOT\n")
    
     try:
         client_op = int(input(">> ") )
@@ -165,22 +156,21 @@ def start ():
 
 
     if(client_op == 1):
-        waiting_time()
+        waiting_time(10)
         clear()
-        mp3();
-        print("GRACIAS POR ESCOJERNOS.....")
-        print("Saliendo del programa")
-        for i in range(0,10):
-            print(". ", end=" ")
-            time.sleep(.3)
-        print("\n")
-        clear()
-         
+        return mp3();
+    elif (client_op == 2 ):
+        print(Fore.RED + """
+        Gracias por escojernos :)
+        """)
+        waiting_time(5);
+        return 0;
+
+    
 
 
 
-sos();
-
+start();
 
 
 
